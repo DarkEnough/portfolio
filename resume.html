@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - My Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="transition-overlay"></div>
+    <!-- Navigation Bar -->
+    <nav class="top-navigation">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="resume.html" class="active">Resume</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Resume Section -->
+    <section class="resume">
+        <h2 class="section-title">View My Resume</h2>
+        <div class="resume-container">
+            <!-- Left Column -->
+            <div class="resume-left">
+                <h3 class="resume-subtitle">Summary</h3>
+                <div class="resume-summary">
+                    <h4>Anish Shivram Gawde</h4>
+                    <p>
+                        Master's student in Data Science with a passion for AI and Machine Learning. Skilled in data-driven problem-solving, with experience in computer vision, NLP, and cloud platforms.
+                    </p>
+                    <ul>
+                        <li>Boston, MA, United States</li>
+                        <li>+1 617-735-7469</li>
+                        <li><a href="mailto:gawde.ani@northeastern.edu">gawde.ani@northeastern.edu</a></li>
+                        <li><a href="https://linkedin.com/in/anish-gawde/">LinkedIn Profile</a></li>
+                    </ul>
+                </div>
+                <h3 class="resume-subtitle">Education</h3>
+                <div class="resume-education">
+                    <h4>Master of Science in Data Science</h4>
+                    <p>Northeastern University, Boston, United States<br>Sep 2024 - May 2026<br>GPA: 4.0</p>
+                    <h4>Bachelor of Engineering in Instrumentation</h4>
+                    <p>Vivekanand Education Society’s Institute of Technology, Mumbai, India<br>Aug 2020 - Jun 2024<br>GPA: 3.7</p>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="resume-right">
+                <h3 class="resume-subtitle">Professional Experience</h3>
+                <div class="resume-experience">
+                    <h4>Data and Control Systems Trainee</h4>
+                    <p>Nuclear Power Corporation of India<br>Jun 2023 - Jul 2023</p>
+                    <ul>
+                        <li>Utilized COIS to extract, transform, and analyze operational data.</li>
+                        <li>Created descriptive summaries of performance metrics.</li>
+                        <li>Calibrated and tested automation equipment.</li>
+                    </ul>
+                </div>
+                <h3 class="resume-subtitle">Projects</h3>
+                <div class="resume-projects">
+                    <h4>Image Caption Generator</h4>
+                    <p>Built an AI-powered system combining deep learning techniques to generate descriptive image captions.</p>
+                    <h4>Vacation Rental Analysis</h4>
+                    <p>Developed a platform for booking vacation rentals with revenue forecasting tools.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const overlay = document.getElementById("transition-overlay");
+    const links = document.querySelectorAll("a");
+
+    // Fade in: Hide the overlay after the page loads
+    setTimeout(() => {
+        overlay.classList.add("inactive");
+    }, 300); // Adjust the timing as needed
+
+    // Fade out: Show the overlay before navigating
+    links.forEach(link => {
+        link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            if (!href || href.startsWith("#")) return; // Skip anchor links
+
+            e.preventDefault(); // Prevent default navigation
+
+            // Activate fade-out effect
+            overlay.classList.remove("inactive");
+
+            // Navigate after animation
+            setTimeout(() => {
+                window.location.href = href;
+            }, 500); // Match the transition duration
+        });
+    });
+});
+</script>
+</html>

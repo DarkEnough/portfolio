@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - My Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="transition-overlay"></div>
+    <!-- Navigation Bar -->
+    <nav class="top-navigation">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="projects.html" class="active">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Projects Section -->
+    <section class="projects">
+        <h2 class="section-title">Portfolio</h2>
+        <h3 class="projects-subtitle">My Works</h3>
+
+        <!-- Project Filters -->
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="data-analysis">Data Analysis</button>
+            <button class="filter-btn" data-filter="machine-learning">Machine Learning</button>
+            <button class="filter-btn" data-filter="ai">AI</button>
+            <button class="filter-btn" data-filter="database-management">Database Management</button>
+        </div>
+
+        <!-- Project Cards -->
+        <div class="projects-grid">
+            <div class="project-card" data-category="machine-learning ai">
+                <img src="images/project1.png" alt="Project 1">
+                <h4>Image Captioner Using ResNet-50 and LSTM</h4>
+                <div class="overlay">
+                    <a href="https://github.com/DarkEnough/Image-Captioner" target="_blank" class="overlay-btn">GitHub</a>
+                    <a href="https://demo.com/project1" target="_blank" class="overlay-btn">Live Demo</a>
+                </div>
+            </div>
+            <div class="project-card" data-category="machine-learning database-management">
+                <img src="images/project2.jpg" alt="Project 2">
+                <h4>Vacation Rental Analysis and Revenue Forecasting</h4>
+                <div class="overlay">
+                    <a href="https://github.com/DarkEnough/Vacation-Rental-Analysis" target="_blank" class="overlay-btn">GitHub</a>
+                    <a href="https://demo.com/project2" target="_blank" class="overlay-btn">Live Demo</a>
+                </div>
+            </div>
+            <div class="project-card" data-category="data-analysis">
+                <img src="images/project2.jpg" alt="Project 3">
+                <h4>News Crawler and Sentiment Analysis</h4>
+                <div class="overlay">
+                    <a href="https://github.com/DarkEnough/NewsCrawler" target="_blank" class="overlay-btn">GitHub</a>
+                    <a href="https://demo.com/project2" target="_blank" class="overlay-btn">Live Demo</a>
+                </div>
+            </div>  
+        </div>
+</div>
+    </section>
+</body>
+<script>
+const filterButtons = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+
+        // Highlight the active filter button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        // Filter projects
+        projectCards.forEach(card => {
+            const categories = card.getAttribute('data-category').split(' '); // Split categories into an array
+            if (filter === 'all' || categories.includes(filter)) {
+                card.style.display = 'block'; // Show matching cards
+            } else {
+                card.style.display = 'none'; // Hide non-matching cards
+            }
+        });
+    });
+});
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const overlay = document.getElementById("transition-overlay");
+    const links = document.querySelectorAll("a");
+
+    // Fade in: Hide the overlay after the page loads
+    setTimeout(() => {
+        overlay.classList.add("inactive");
+    }, 300); // Adjust the timing as needed
+
+    // Fade out: Show the overlay before navigating
+    links.forEach(link => {
+        link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            if (!href || href.startsWith("#")) return; // Skip anchor links
+
+            e.preventDefault(); // Prevent default navigation
+
+            // Activate fade-out effect
+            overlay.classList.remove("inactive");
+
+            // Navigate after animation
+            setTimeout(() => {
+                window.location.href = href;
+            }, 500); // Match the transition duration
+        });
+    });
+});
+</script>
+</html>

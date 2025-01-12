@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - My Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+</head>
+<body onload="AOS.init();">
+    <div id="transition-overlay"></div>
+    <!-- Home Content -->
+    <section>
+        <div class="content-container">
+            <h1 class="name">Anish Gawde</h1>
+            <p class="typing">
+                I am a <span id="dynamic-text"></span>
+            </p>
+            <nav>
+                <ul class="navigation">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="resume.html">Resume</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com" target="_blank" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="mailto:gawde.ani@northeastern.edu" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+    </footer>
+</body>
+<script>
+    const dynamicText = document.getElementById('dynamic-text');
+
+// Array of roles to type
+const roles = ['Data Scientist', 'AI Engineer', 'Web Developer', 'Machine Learning Enthusiast'];
+
+let currentRoleIndex = 0; // Start with the first role
+let isDeleting = false;   // Are we deleting characters?
+let currentText = '';     // Current text being typed
+let speed = 100;          // Typing speed
+
+function typeEffect() {
+    const fullText = roles[currentRoleIndex];
+
+    if (isDeleting) {
+        // Delete characters
+        currentText = fullText.substring(0, currentText.length - 1);
+    } else {
+        // Add characters
+        currentText = fullText.substring(0, currentText.length + 1);
+    }
+
+    // Update the text content
+    dynamicText.textContent = currentText;
+
+    // Determine speed
+    if (!isDeleting && currentText === fullText) {
+        // Pause when full text is displayed
+        speed = 1000;
+        isDeleting = true;
+    } else if (isDeleting && currentText === '') {
+        // Pause when text is deleted
+        speed = 500;
+        isDeleting = false;
+        currentRoleIndex = (currentRoleIndex + 1) % roles.length; // Move to the next role
+    } else {
+        speed = isDeleting ? 50 : 100; // Faster delete, slower typing
+    }
+
+    setTimeout(typeEffect, speed);
+}
+
+// Start the typing effect
+typeEffect();
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const overlay = document.getElementById("transition-overlay");
+    const links = document.querySelectorAll("a");
+
+    // Fade in: Hide the overlay after the page loads
+    setTimeout(() => {
+        overlay.classList.add("inactive");
+    }, 300); // Adjust the timing as needed
+
+    // Fade out: Show the overlay before navigating
+    links.forEach(link => {
+        link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            if (!href || href.startsWith("#")) return; // Skip anchor links
+
+            e.preventDefault(); // Prevent default navigation
+
+            // Activate fade-out effect
+            overlay.classList.remove("inactive");
+
+            // Navigate after animation
+            setTimeout(() => {
+                window.location.href = href;
+            }, 500); // Match the transition duration
+        });
+    });
+});
+</script>
+</html>
